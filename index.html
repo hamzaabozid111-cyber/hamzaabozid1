@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">محلل الأداء | HAMZA ABOZAID</title>
+    
+    <meta name="description" id="metaDescription" content="منصة البطاقات الفنية وتحليل الأداء الاحترافي - حمزة أبوزيد">
+    <meta name="keywords" id="metaKeywords" content="حمزة أبوزيد, تحليل أداء, كرة قدم, CV, Performance Analyst">
+    
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --card-bg: linear-gradient(145deg, #0b1329 0%, #050a17 100%);
+            --accent-blue: #00d2ff;
+            --accent-glow: rgba(0, 210, 255, 0.45);
+            --gold: #d4af37;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --danger: #ff2a5f;
+            --warning-yellow: #ffb703;
+            --secondary-orange: #ff7b00;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            padding-bottom: 50px;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(3, 7, 18, 0.95);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .logo-container:hover {
+            transform: scale(1.06);
+        }
+
+        .logo-container img {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            transition: box-shadow 0.3s;
+        }
+
+        .logo-container:hover img {
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.8);
+        }
+
+        .logo-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-info .title-text {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--accent-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-info .phone-text {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: bold;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            padding: 10px 40px 10px 18px;
+            border-radius: 25px;
+            color: white;
+            width: 220px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus, .search-bar:hover {
+            width: 260px;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px var(--accent-glow);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--accent-blue);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #00d2ff, #0072ff);
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .page-section { display: none; opacity: 0; transition: opacity 0.4s ease; }
+        .page-section.active { display: block; opacity: 1; }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 110px auto 20px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 850px) {
+            .main-container { grid-template-columns: 1fr; }
+            .search-bar { width: 140px; }
+            .search-bar:focus, .search-bar:hover { width: 170px; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 210, 255, 0.4);
+            box-shadow: 0 15px 45px rgba(0, 210, 255, 0.15);
+        }
+
+        .player-card { text-align: center; }
+
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+
+        .player-avatar {
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-blue);
+            box-shadow: 0 0 35px var(--accent-glow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .player-avatar:hover {
+            transform: scale(1.08) rotate(1deg);
+            border-color: var(--gold);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.6);
+        }
+
+        .player-name {
+            font-size: 2.1rem;
+            font-weight: 800;
+            transition: color 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .player-name:hover {
+            color: var(--accent-blue);
+            transform: scale(1.03);
+        }
+
+        .player-sub {
+            color: var(--gold);
+            font-size: 1.15rem;
+            margin-bottom: 22px;
+            font-weight: 700;
+        }
+
+        .pitch-title {
+            text-align: right;
+            font-weight: bold;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
+        .pitch-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 210, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            background: #235c2b;
+            transition: all 0.4s ease;
+        }
+
+        .pitch-wrapper:hover {
+            transform: scale(1.04);
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.3);
+        }
+
+        .pitch-wrapper svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .position-dot {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .position-dot:hover {
+            transform: translate(-50%, -50%) scale(1.4);
+        }
+
+        .dot-primary {
+            background-color: var(--danger);
+            border: 2px solid #fff;
+            box-shadow: 0 0 18px var(--danger);
+        }
+
+        .dot-secondary1 {
+            background-color: var(--secondary-orange);
+            border: 2px solid #fff;
+            box-shadow: 0 0 18px var(--secondary-orange);
+        }
+
+        .dot-secondary2 {
+            background-color: var(--warning-yellow);
+            border: 2px solid #fff;
+            box-shadow: 0 0 18px var(--warning-yellow);
+        }
+
+        .section-header {
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            border-bottom: 2px solid rgba(0, 210, 255, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .clubs-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 25px; }
+
+        .club-card {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .club-card:hover {
+            transform: translateX(-8px) scale(1.02);
+            background: rgba(0, 210, 255, 0.08);
+            border-color: var(--accent-blue);
+            box-shadow: 0 5px 20px rgba(0, 210, 255, 0.2);
+        }
+
+        .club-card img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-left: 15px;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .club-card:hover img {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .bio-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            transition: color 0.3s;
+        }
+
+        .bio-text:hover { color: #fff; }
+
+        .video-box {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            background: #000;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .video-box:hover {
+            transform: scale(1.02);
+            border-color: var(--accent-blue);
+        }
+
+        .video-box iframe { width: 100%; height: 240px; border: none; display: block; }
+
+        .admin-page-container {
+            max-width: 1050px;
+            margin: 110px auto 30px;
+            padding: 30px;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 800px) {
+            .admin-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group { margin-bottom: 18px; text-align: right; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--accent-blue); font-weight: 700; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 12px; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2); background: #050a17; color: #fff;
+            outline: none; transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .club-input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            transition: border-color 0.3s;
+        }
+
+        .club-input-row:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .btn-danger:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container" onclick="showMainPage()" title="الرجوع للرئيسية">
+            <img src="" id="displayLogo" alt="HAMZA ABOZAID">
+            <div class="logo-info">
+                <div class="title-text">محلل الأداء | HAMZA ABOZAID</div>
+                <div class="phone-text">📞 01016391173</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="search-container" id="searchHeaderBox">
+                <input type="text" id="searchInput" class="search-bar" placeholder="ابحث باسم اللاعب..." onkeypress="handleSearchKey(event)">
+                <button class="search-btn" onclick="executeSearch()">🔍</button>
+            </div>
+            <button class="btn" id="navAdminBtn" onclick="handleAuthNav()">تسجيل الدخول</button>
+        </div>
+    </header>
+
+    <div id="mainPage" class="page-section active">
+        <div class="main-container">
+
+            <div class="card player-card">
+                <div class="avatar-wrapper">
+                    <img src="" id="displayAvatar" alt="صورة اللاعب" class="player-avatar">
+                </div>
+                <div class="player-name" id="displayName">حمزة أبوزيد</div>
+                <div class="player-sub" id="displayTitle">محلل أداء رياضي</div>
+
+                <div class="pitch-title">خريطة مراكز اللعب (🔴 أساسي | 🟠 بديل 1 | 🟡 بديل 2):</div>
+                
+                <div class="pitch-wrapper" id="mainPitchWrapper">
+                    <svg viewBox="0 0 300 450" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="300" height="450" fill="#2d6a37"/>
+                        <g opacity="0.12" fill="#ffffff">
+                            <rect y="0" width="300" height="30"/>
+                            <rect y="60" width="300" height="30"/>
+                            <rect y="120" width="300" height="30"/>
+                            <rect y="180" width="300" height="30"/>
+                            <rect y="240" width="300" height="30"/>
+                            <rect y="300" width="300" height="30"/>
+                            <rect y="360" width="300" height="30"/>
+                            <rect y="420" width="300" height="30"/>
+                        </g>
+                        <g stroke="#ffffff" stroke-width="2.5" fill="none" opacity="0.85">
+                            <rect x="15" y="15" width="270" height="420"/>
+                            <line x1="15" y1="225" x2="285" y2="225"/>
+                            <circle cx="150" cy="225" r="38"/>
+                            <circle cx="150" cy="225" r="2.5" fill="#ffffff"/>
+                            <rect x="75" y="15" width="150" height="60"/>
+                            <rect x="105" y="15" width="90" height="22"/>
+                            <path d="M 120 75 A 35 35 0 0 0 180 75"/>
+                            <rect x="75" y="375" width="150" height="60"/>
+                            <rect x="105" y="413" width="90" height="22"/>
+                            <path d="M 120 375 A 35 35 0 0 1 180 375"/>
+                        </g>
+                    </svg>
+
+                    <div class="position-dot dot-primary" id="primaryDot" style="top: 35%; left: 50%;" title="المركز الأساسي"></div>
+                    <div class="position-dot dot-secondary1" id="secondary1Dot" style="top: 55%; left: 30%;" title="المركز البديل الأول"></div>
+                    <div class="position-dot dot-secondary2" id="secondary2Dot" style="top: 25%; left: 70%;" title="المركز البديل الثاني"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="section-header">تاريخ الأندية والعمل الفني</h3>
+                <div class="clubs-list" id="clubsContainer"></div>
+
+                <h3 class="section-header">السيرة الذاتية</h3>
+                <p class="bio-text" id="displayBio">
+                    محلل أداء رياضي متخصص في إعداد التقارير الفنية التكتيكية، وتقييم اللاعبين وتتبع المسار الإحصائي للمباريات.
+                </p>
+
+                <h3 class="section-header">فيديو الـ CV والتجميعات</h3>
+                <div class="video-box" id="videoContainer">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" id="displayVideo" allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="adminPage" class="page-section">
+        <div class="admin-page-container card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:2px solid rgba(0, 210, 255, 0.2); padding-bottom:12px;">
+                <h2 style="color:var(--accent-blue);">لوحة التحكم وتعديل ملفات اللاعبين</h2>
+                <button class="btn" style="background:#444" onclick="showMainPage()">← العودة للواجهة</button>
+            </div>
+
+            <div class="form-group" style="background: rgba(0, 210, 255, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(0, 210, 255, 0.3);">
+                <label style="color: var(--gold);">⭐ رابط اللوجو العام للمنصة (الهيدر الثابت):</label>
+                <input type="text" id="inputGlobalLogo" placeholder="أدخل رابط اللوجو هنا...">
+            </div>
+
+            <div class="form-group">
+                <label>اختر اللاعب للتعديل أو إضافة جديد:</label>
+                <select id="playerSelect" onchange="populateForm(this.value)">
+                    <option value="NEW">+ إضافة لاعب جديد</option>
+                </select>
+            </div>
+
+            <div class="admin-grid">
+                <div>
+                    <div class="form-group">
+                        <label>اسم اللاعب بالكامل:</label>
+                        <input type="text" id="inputName">
+                    </div>
+                    <div class="form-group">
+                        <label>المركز / المسمى الوظيفي:</label>
+                        <input type="text" id="inputTitle">
+                    </div>
+                    <div class="form-group">
+                        <label>رابط صورة اللاعب / الشخصية (صورة مخصصة لهذا اللاعب):</label>
+                        <input type="text" id="inputAvatar">
+                    </div>
+
+                    <div class="form-group">
+                        <label>اختر المركز واضغط على الملعب لتحديد الموقع:</label>
+                        <div style="display:flex; gap:12px; margin-bottom:10px; flex-wrap:wrap;">
+                            <label style="font-size:0.9rem; cursor:pointer;"><input type="radio" name="dotPickerType" value="primary" checked> 🔴 أساسي</label>
+                            <label style="font-size:0.9rem; cursor:pointer;"><input type="radio" name="dotPickerType" value="sec1"> 🟠 بديل 1</label>
+                            <label style="font-size:0.9rem; cursor:pointer;"><input type="radio" name="dotPickerType" value="sec2"> 🟡 بديل 2</label>
+                        </div>
+                        
+                        <div class="pitch-wrapper" id="adminPitchWrapper" onclick="clickOnAdminPitch(event)" style="cursor:crosshair;">
+                            <svg viewBox="0 0 300 450" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="300" height="450" fill="#2d6a37"/>
+                                <g opacity="0.12" fill="#ffffff">
+                                    <rect y="0" width="300" height="30"/>
+                                    <rect y="60" width="300" height="30"/>
+                                    <rect y="120" width="300" height="30"/>
+                                    <rect y="180" width="300" height="30"/>
+                                    <rect y="240" width="300" height="30"/>
+                                    <rect y="300" width="300" height="30"/>
+                                    <rect y="360" width="300" height="30"/>
+                                    <rect y="420" width="300" height="30"/>
+                                </g>
+                                <g stroke="#ffffff" stroke-width="2.5" fill="none" opacity="0.85">
+                                    <rect x="15" y="15" width="270" height="420"/>
+                                    <line x1="15" y1="225" x2="285" y2="225"/>
+                                    <circle cx="150" cy="225" r="38"/>
+                                    <circle cx="150" cy="225" r="2.5" fill="#ffffff"/>
+                                    <rect x="75" y="15" width="150" height="60"/>
+                                    <rect x="105" y="15" width="90" height="22"/>
+                                    <path d="M 120 75 A 35 35 0 0 0 180 75"/>
+                                    <rect x="75" y="375" width="150" height="60"/>
+                                    <rect x="105" y="413" width="90" height="22"/>
+                                    <path d="M 120 375 A 35 35 0 0 1 180 375"/>
+                                </g>
+                            </svg>
+                            <div class="position-dot dot-primary" id="adminPrimaryDot" style="top: 35%; left: 50%;"></div>
+                            <div class="position-dot dot-secondary1" id="adminSec1Dot" style="top: 55%; left: 30%;"></div>
+                            <div class="position-dot dot-secondary2" id="adminSec2Dot" style="top: 25%; left: 70%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="form-group">
+                        <label>رابط فيديو الـ CV (YouTube Embed):</label>
+                        <input type="text" id="inputVideo">
+                    </div>
+                    <div class="form-group">
+                        <label>السيرة الذاتية:</label>
+                        <textarea id="inputBio" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <label>تاريخ الأندية / محطات العمل:</label>
+                            <button type="button" class="btn" style="padding:5px 12px; font-size:0.85rem;" onclick="addClubInputRow()">+ إضافة نادي</button>
+                        </div>
+                        <div id="adminClubsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:15px; justify-content:center; margin-top:25px; border-top:1px solid rgba(255,255,255,0.1); padding-top:18px;">
+                <button class="btn" style="padding:12px 35px; font-size:1.05rem;" onclick="saveCurrentPlayer()">💾 حفظ التغيرات والبيانات</button>
+                <button class="btn" style="background:#444; padding:12px 25px;" onclick="showMainPage()">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // دالة تشفير SHA-256 نقية بالكامل (تعمل بدون قيود في أي متصفح أو تشغيل محلي)
+        function sha256(ascii) {
+            function rightRotate(value, amount) {
+                return (value >>> amount) | (value << (32 - amount));
+            }
+            var mathPow = Math.pow;
+            var maxWord = mathPow(2, 32);
+            var lengthProperty = 'length';
+            var i, j;
+            var result = '';
+            var words = [];
+            var asciiBitLength = ascii[lengthProperty] * 8;
+            var hash = sha256.h = sha256.h || [];
+            var k = sha256.k = sha256.k || [];
+            var primeCounter = k[lengthProperty];
+            var isComposite = {};
+            for (var candidate = 2; primeCounter < 64; candidate++) {
+                if (!isComposite[candidate]) {
+                    for (i = 0; i < 300; i += candidate) {
+                        isComposite[i] = true;
+                    }
+                    hash[primeCounter] = (mathPow(candidate, 1 / 2) * maxWord) | 0;
+                    k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+                }
+            }
+            ascii += '\x80';
+            while (ascii[lengthProperty] % 64 - 56) ascii += '\x00';
+            for (i = 0; i < ascii[lengthProperty]; i++) {
+                j = ascii.charCodeAt(i);
+                if (j >> 8) return;
+                words[i >> 2] |= j << ((3 - i % 4) * 8);
+            }
+            words[words[lengthProperty]] = ((asciiBitLength / maxWord) | 0);
+            words[words[lengthProperty]] = (asciiBitLength);
+            for (j = 0; j < words[lengthProperty];) {
+                var w = words.slice(j, j += 16);
+                var oldHash = hash;
+                hash = hash.slice(0, 8);
+                for (i = 0; i < 64; i++) {
+                    var w15 = w[i - 15], w2 = w[i - 2];
+                    var a = hash[0], e = hash[4];
+                    var temp1 = hash[7] +
+                        (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) +
+                        ((e & hash[5]) ^ ((~e) & hash[6])) +
+                        k[i] +
+                        (w[i] = (i < 16) ? w[i] : (
+                            w[i - 16] +
+                            (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
+                            w[i - 7] +
+                            (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+                        ) | 0);
+                    var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) +
+                        ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[3]));
+                    hash = [(temp1 + temp2) | 0].concat(hash);
+                    hash[4] = (hash[4] + temp1) | 0;
+                }
+                for (i = 0; i < 8; i++) {
+                    hash[i] = (hash[i] + oldHash[i]) | 0;
+                }
+            }
+            for (i = 0; i < 8; i++) {
+                for (j = 3; j + 1; j--) {
+                    var b = (hash[i] >> (j * 8)) & 255;
+                    result += ((b < 16) ? '0' : '') + b.toString(16);
+                }
+            }
+            return result;
+        }
+
+        // تحويل روابط جوجل درايف تلقائياً لرابط مباشر للصورة
+        function formatImageUrl(url) {
+            if (!url) return "";
+            if (url.includes('drive.google.com')) {
+                let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                if (match && match[1]) {
+                    return `https://lh3.googleusercontent.com/d/${match[1]}=s400`;
+                }
+            }
+            return url;
+        }
+
+        let defaultLogo = "https://drive.google.com/file/d/1IbdKHZWwdVNuSsXkLAJN59YW9Tt5_ld4/view?usp=drive_link";
+        let isLoggedIn = false;
+
+        // كلمة المرور المشفرة بـ SHA-256 لكلمة السر (775533002007)
+        const HASHED_PASSWORD = "300ea1e847c23bc6c483ce211bf7cf49cb86bfd5d713c77d0cf0c3d9ae7be1d1";
+
+        let defaultPlayers = {
+            "حمزة أبوزيد": {
+                name: "حمزة أبوزيد",
+                title: "محلل أداء رياضي",
+                avatar: defaultLogo,
+                top1: "35%", left1: "50%",
+                top2: "55%", left2: "30%",
+                top3: "25%", left3: "70%",
+                bio: "محلل أداء رياضي متخصص في تحليل المباريات وتتبع تحركات اللاعبين وإعداد التقارير الفنية التكتيكية.",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                clubs: [
+                    { name: "نادي شبان قنا", years: "موسم 2025 - 2026", img: defaultLogo },
+                    { name: "تيم إف سي", years: "مباريات الترقي", img: defaultLogo },
+                    { name: "نادي شبان قنا (مساعد)", years: "موسم 2024 - 2025", img: defaultLogo }
+                ]
+            },
+            "محمد صلاح": {
+                name: "محمد صلاح",
+                title: "مهاجم / جناح أيمن",
+                avatar: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400",
+                top1: "20%", left1: "75%",
+                top2: "35%", left2: "50%",
+                top3: "40%", left3: "80%",
+                bio: "لاعب كرة قدم محترف في مركز الجناح الأيمن، يُعتبر أحد أفضل اللاعبين في العالم.",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                clubs: [
+                    { name: "ليفربول", years: "2017 - الآن", img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=100" }
+                ]
+            }
+        };
+
+        let tempTop1 = "35%", tempLeft1 = "50%";
+        let tempTop2 = "55%", tempLeft2 = "30%";
+        let tempTop3 = "25%", tempLeft3 = "70%";
+
+        function getGlobalLogo() {
+            let logo = localStorage.getItem('app_global_logo');
+            return logo ? logo : defaultLogo;
+        }
+
+        function getDatabase() {
+            let db = localStorage.getItem('transfer_market_db');
+            if(!db) {
+                localStorage.setItem('transfer_market_db', JSON.stringify(defaultPlayers));
+                return defaultPlayers;
+            }
+            return JSON.parse(db);
+        }
+
+        window.onload = function() {
+            let db = getDatabase();
+            if(!db["حمزة أبوزيد"]) {
+                localStorage.setItem('transfer_market_db', JSON.stringify(defaultPlayers));
+            }
+            applyGlobalLogo();
+            updateSelectOptions();
+            loadPlayer("حمزة أبوزيد");
+        };
+
+        function applyGlobalLogo() {
+            let logoUrl = formatImageUrl(getGlobalLogo());
+            document.getElementById('displayLogo').src = logoUrl;
+        }
+
+        function showMainPage() {
+            document.getElementById('mainPage').classList.add('active');
+            document.getElementById('adminPage').classList.remove('active');
+        }
+
+        // دالة المصادقة وحماية لوحة التحكم باستخدام دالة التشفير الآمنة
+        function handleAuthNav() {
+            if(isLoggedIn) {
+                document.getElementById('mainPage').classList.remove('active');
+                document.getElementById('adminPage').classList.add('active');
+            } else {
+                let pass = prompt("أدخل كلمة المرور الآمنة لدخول لوحة التحكم:");
+                if(pass !== null) {
+                    let hashedInput = sha256(pass.trim());
+                    if(hashedInput === HASHED_PASSWORD) {
+                        isLoggedIn = true;
+                        document.getElementById('navAdminBtn').innerText = "لوحة التحكم";
+                        updateSelectOptions();
+                        document.getElementById('mainPage').classList.remove('active');
+                        document.getElementById('adminPage').classList.add('active');
+                        populateForm(document.getElementById('playerSelect').value);
+                    } else {
+                        alert("كلمة المرور غير صحيحة!");
+                    }
+                }
+            }
+        }
+
+        function loadPlayer(playerName) {
+            let db = getDatabase();
+            let p = db[playerName];
+            if(!p) {
+                alert("لم يتم العثور على اللاعب!");
+                return;
+            }
+
+            document.title = `${p.name} - محلل الأداء الرياضي`;
+            document.getElementById('displayName').innerText = p.name;
+            document.getElementById('displayTitle').innerText = p.title;
+            document.getElementById('displayAvatar').src = formatImageUrl(p.avatar) || formatImageUrl(getGlobalLogo());
+            applyGlobalLogo();
+            document.getElementById('displayBio').innerText = p.bio;
+            document.getElementById('displayVideo').src = p.video;
+
+            document.getElementById('primaryDot').style.top = p.top1 || "35%";
+            document.getElementById('primaryDot').style.left = p.left1 || "50%";
+            document.getElementById('secondary1Dot').style.top = p.top2 || "55%";
+            document.getElementById('secondary1Dot').style.left = p.left2 || "30%";
+            document.getElementById('secondary2Dot').style.top = p.top3 || "25%";
+            document.getElementById('secondary2Dot').style.left = p.left3 || "70%";
+
+            let clubsHtml = "";
+            if(p.clubs && p.clubs.length > 0) {
+                p.clubs.forEach(c => {
+                    clubsHtml += `
+                        <div class="club-card">
+                            <img src="${formatImageUrl(c.img) || formatImageUrl(getGlobalLogo())}" alt="${c.name}">
+                            <div>
+                                <h4 style="font-size:1.05rem;">${c.name}</h4>
+                                <span style="font-size:0.85rem; color:var(--text-muted);">${c.years}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                clubsHtml = `<div style="color:var(--text-muted); font-size:0.85rem">لا توجد أندية سابقة مضافة.</div>`;
+            }
+            document.getElementById('clubsContainer').innerHTML = clubsHtml;
+        }
+
+        function clickOnAdminPitch(e) {
+            let wrapper = document.getElementById('adminPitchWrapper');
+            let rect = wrapper.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+            let y = e.clientY - rect.top;
+
+            let topPct = Math.round((y / rect.height) * 100) + "%";
+            let leftPct = Math.round((x / rect.width) * 100) + "%";
+
+            let type = document.querySelector('input[name="dotPickerType"]:checked').value;
+
+            if(type === "primary") {
+                tempTop1 = topPct; tempLeft1 = leftPct;
+                document.getElementById('adminPrimaryDot').style.top = tempTop1;
+                document.getElementById('adminPrimaryDot').style.left = tempLeft1;
+            } else if(type === "sec1") {
+                tempTop2 = topPct; tempLeft2 = leftPct;
+                document.getElementById('adminSec1Dot').style.top = tempTop2;
+                document.getElementById('adminSec1Dot').style.left = tempLeft2;
+            } else {
+                tempTop3 = topPct; tempLeft3 = leftPct;
+                document.getElementById('adminSec2Dot').style.top = tempTop3;
+                document.getElementById('adminSec2Dot').style.left = tempLeft3;
+            }
+        }
+
+        function addClubInputRow(name = "", years = "", img = defaultLogo) {
+            let container = document.getElementById('adminClubsList');
+            let div = document.createElement('div');
+            div.className = "club-input-row";
+            div.innerHTML = `
+                <input type="text" placeholder="اسم النادي" value="${name}" class="c-name">
+                <input type="text" placeholder="الفترة" value="${years}" class="c-years">
+                <input type="text" placeholder="رابط اللوجو" value="${img || defaultLogo}" class="c-img">
+                <button type="button" class="btn-danger" onclick="this.parentElement.remove()">✕</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function updateSelectOptions() {
+            let select = document.getElementById('playerSelect');
+            select.innerHTML = '<option value="NEW">+ إضافة لاعب جديد</option>';
+            let db = getDatabase();
+            Object.keys(db).forEach(k => {
+                select.innerHTML += `<option value="${k}">${k}</option>`;
+            });
+        }
+
+        function populateForm(key) {
+            document.getElementById('inputGlobalLogo').value = getGlobalLogo();
+
+            let clubsContainer = document.getElementById('adminClubsList');
+            clubsContainer.innerHTML = "";
+
+            if(key === "NEW") {
+                document.getElementById('inputName').value = "";
+                document.getElementById('inputTitle').value = "";
+                document.getElementById('inputAvatar').value = defaultLogo;
+                document.getElementById('inputVideo').value = "https://www.youtube.com/embed/dQw4w9WgXcQ";
+                document.getElementById('inputBio').value = "";
+                tempTop1 = "35%"; tempLeft1 = "50%";
+                tempTop2 = "55%"; tempLeft2 = "30%";
+                tempTop3 = "25%"; tempLeft3 = "70%";
+                addClubInputRow("نادي جديد", "2025 - 2026", defaultLogo);
+            } else {
+                let p = getDatabase()[key];
+                document.getElementById('inputName').value = p.name;
+                document.getElementById('inputTitle').value = p.title;
+                document.getElementById('inputAvatar').value = p.avatar || defaultLogo;
+                document.getElementById('inputVideo').value = p.video;
+                document.getElementById('inputBio').value = p.bio;
+                tempTop1 = p.top1 || "35%"; tempLeft1 = p.left1 || "50%";
+                tempTop2 = p.top2 || "55%"; tempLeft2 = p.left2 || "30%";
+                tempTop3 = p.top3 || "25%"; tempLeft3 = p.left3 || "70%";
+
+                if(p.clubs && p.clubs.length > 0) {
+                    p.clubs.forEach(c => addClubInputRow(c.name, c.years, c.img || defaultLogo));
+                } else {
+                    addClubInputRow();
+                }
+            }
+
+            document.getElementById('adminPrimaryDot').style.top = tempTop1;
+            document.getElementById('adminPrimaryDot').style.left = tempLeft1;
+            document.getElementById('adminSec1Dot').style.top = tempTop2;
+            document.getElementById('adminSec1Dot').style.left = tempLeft2;
+            document.getElementById('adminSec2Dot').style.top = tempTop3;
+            document.getElementById('adminSec2Dot').style.left = tempLeft3;
+        }
+
+        function saveCurrentPlayer() {
+            let name = document.getElementById('inputName').value.trim();
+            if(!name) {
+                alert("يرجى إدخال اسم اللاعب!");
+                return;
+            }
+
+            let globalLogoVal = document.getElementById('inputGlobalLogo').value.trim();
+            if(globalLogoVal) {
+                localStorage.setItem('app_global_logo', globalLogoVal);
+                applyGlobalLogo();
+            }
+
+            let clubsData = [];
+            let rows = document.querySelectorAll('.club-input-row');
+            rows.forEach(r => {
+                let cName = r.querySelector('.c-name').value.trim();
+                let cYears = r.querySelector('.c-years').value.trim();
+                let cImg = r.querySelector('.c-img').value.trim();
+                if(cName) {
+                    clubsData.push({ name: cName, years: cYears, img: cImg || defaultLogo });
+                }
+            });
+
+            let db = getDatabase();
+            db[name] = {
+                name: name,
+                title: document.getElementById('inputTitle').value,
+                avatar: document.getElementById('inputAvatar').value || defaultLogo,
+                top1: tempTop1, left1: tempLeft1,
+                top2: tempTop2, left2: tempLeft2,
+                top3: tempTop3, left3: tempLeft3,
+                video: document.getElementById('inputVideo').value,
+                bio: document.getElementById('inputBio').value,
+                clubs: clubsData
+            };
+
+            localStorage.setItem('transfer_market_db', JSON.stringify(db));
+            alert("تم حفظ بيانات اللاعب والصورة الخاصة به وتحديث اللوجو بنجاح!");
+            showMainPage();
+            loadPlayer(name);
+        }
+
+        function executeSearch() {
+            let query = document.getElementById('searchInput').value.trim();
+            if(query) {
+                let db = getDatabase();
+                let foundKey = Object.keys(db).find(k => k.toLowerCase().includes(query.toLowerCase()));
+                if(foundKey) {
+                    showMainPage();
+                    loadPlayer(foundKey);
+                } else {
+                    alert("لم يتم العثور على اللاعب!");
+                }
+            }
+        }
+
+        function handleSearchKey(e) {
+            if(e.key === 'Enter') executeSearch();
+        }
+    </script>
+</body>
+</html>
